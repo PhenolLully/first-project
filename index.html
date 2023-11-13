@@ -5,25 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" type="text/css" href="./css/styles.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
         <title>Generate a Joke!</title>
     </head>
     <body>
         <header class="container">
             <h1>Joke Generator</h1>
-            <button class="contrast" data-target="modal-example" onClick="toggleModal(event)">
+            <button class="contrast" data-target="modal-example" onClick="toggleModal(event)" id="favoriteList">
             My Favorite Jokes
             </button>
         </header>
         <section class="container">
             <div>Please select a category to get a random joke!</div>
             <div class="grid">
-            <button>Dad Joke</button>
-            <button>Programming Joke</button>
+            <button id="dadJoke">Dad Joke</button>
+            <button id="progJoke">Programming Joke</button>
             </div>
         </section>
         <section class="container">
         <div class="grid">Result Joke
-            <button>⭐ Favorite</button>
+            <p id="jokeText"></p>
+            <button id="favorButton">⭐ Favorite</button>
         </div>
         </section>
     </body>
