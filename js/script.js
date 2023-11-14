@@ -1,5 +1,5 @@
 var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-var jokeUrl2 = "https://api.chucknorris.io/jokes/random"
+var jokeUrl2 = "https://api.chucknorris.io/jokes/random";
 
 var bothJokes = [];
 
@@ -10,13 +10,14 @@ function fetchJokes(apiUrl) {
         return response.text();
       } else {
         console.log('Network response was not ok');
+      
       }
     })
     .then(function (jokes) {
       bothJokes.push(jokes);
     })
-    .catch(function (error) {
-      console.log('Error:', error);
+    .catch(function () {
+      console.log('Error:');
     });
 }
 
@@ -27,13 +28,15 @@ fetchJokes(jokeUrl1)
   .then(function () {
     console.log('Both jokes:', bothJokes);
 
-  for (i = 0; i < bothJokes.length; i++){
-	console.log(bothJokes[i]);
+    for (let i = 0; i < bothJokes.length; i++) {
+      console.log(bothJokes[i]);
     }
+  })
+
+  .catch(function () {
+    console.error('An error occurred:');
   });
-  function fetchJokes(){
-	
-  }
+
 
   
 
