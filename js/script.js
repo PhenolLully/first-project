@@ -1,8 +1,25 @@
 var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-
-  var jokeUrl2 = 'https://icanhazdadjoke.com/'
+var jokeUrl2 = 'https://icanhazdadjoke.com/'
 
 var bothJokes = [];
+
+$(".dad").on("click", function() {
+  alert("Joke clicked!");
+});
+
+$(".prog").on("click", function(){
+  alert("Joke clicked");
+});
+
+$("#favorButton").on("click", function(){
+  alert("Button clicked")
+})
+
+$(".contrast").on("click", function(){
+  
+})
+
+
 
 function fetchJokes(apiUrl) {
   return fetch(apiUrl, {
@@ -43,7 +60,4 @@ fetchJokes(jokeUrl1)
   });
 
 function getDadJoke(){
-  
 }
-  
-
