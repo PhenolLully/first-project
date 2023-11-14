@@ -1,6 +1,5 @@
 var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-
-  var jokeUrl2 = 'https://icanhazdadjoke.com/'
+var jokeUrl2 = 'https://icanhazdadjoke.com/'
 
 var bothJokes = [];
 
