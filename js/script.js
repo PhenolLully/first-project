@@ -3,6 +3,24 @@ var jokeUrl2 = 'https://icanhazdadjoke.com/'
 
 var bothJokes = [];
 
+$(".dad").on("click", function() {
+  alert("Joke clicked!");
+});
+
+$(".prog").on("click", function(){
+  alert("Joke clicked");
+});
+
+$("#favorButton").on("click", function(){
+  alert("Button clicked")
+})
+
+$(".contrast").on("click", function(){
+  
+})
+
+
+
 function fetchJokes(apiUrl) {
   return fetch(apiUrl, {
     headers: {
@@ -40,6 +58,7 @@ fetchJokes(jokeUrl1)
   .catch(function () {
     console.error('An error occurred:');
   });
+
 
 $('#dadJoke').on('click', function () {
   $('#jokeText').text(bothJokes[0]);
