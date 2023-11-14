@@ -1,10 +1,15 @@
 var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-var jokeUrl2 = "https://api.chucknorris.io/jokes/random";
+
+  var jokeUrl2 = fetch('https://icanhazdadjoke.com/',{
+      headers: {
+          Accept: "application/json"
+      }
+  });
 
 var bothJokes = [];
 
 function fetchJokes(apiUrl) {
-  return fetch(apiUrl)
+      return fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
         return response.text();
