@@ -59,5 +59,17 @@ fetchJokes(jokeUrl1)
     console.error('An error occurred:');
   });
 
+
+  $('#dadJoke').on('click', function () {
+    $('#jokeText').text(bothJokes[1]);
+  });
+  $('#progJoke').on('click', function () {
+    $('#jokeText').text(bothJokes[0]);
+  });
+  
+  
+  
+  
+  
 function getDadJoke(){
 }
