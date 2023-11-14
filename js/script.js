@@ -1,31 +1,39 @@
-/** Pseudocode Steps
- 
-WHEN user searches for a player:
-  - IF search is successful:
-    THEN display player search results.
-  - ELSE:
-    THEN display an error message.
+var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
+var jokeUrl2 = "https://api.chucknorris.io/jokes/random"
 
-WHEN user selects a player:
-  - IF player data retrieval is successful:
-    THEN display player profile and statistics.
-  - ELSE:
-    THEN display an error message.
+var bothJokes = [];
 
-WHEN an error occurs during API requests or no search results are found:
-  - THEN display a user-friendly error message.
+function fetchJokes(apiUrl) {
+  return fetch(apiUrl)
+    .then(function (response) {
+      if (response.ok) {
+        return response.text();
+      } else {
+        console.log('Network response was not ok');
+      }
+    })
+    .then(function (jokes) {
+      bothJokes.push(jokes);
+    })
+    .catch(function (error) {
+      console.log('Error:', error);
+    });
+}
 
-WHEN accessed on various devices and screen sizes:
-  - THEN provide a responsive user experience.
+fetchJokes(jokeUrl1)
+  .then(function () {
+    return fetchJokes(jokeUrl2);
+  })
+  .then(function () {
+    console.log('Both jokes:', bothJokes);
 
-WHEN loading and displaying data:
-  - THEN ensure fast loading and responsive behavior.
+  for (i = 0; i < bothJokes.length; i++){
+	console.log(bothJokes[i]);
+    }
+  });
+  function fetchJokes(){
+	
+  }
 
-WHEN accessed through different web browsers:
-  - THEN ensure cross-browser compatibility.
-
-WHEN undergoing testing:
-  - THEN execute tests to verify functionality and handle errors gracefully.
-
- */
+  
 
