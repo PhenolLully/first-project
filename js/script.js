@@ -14,12 +14,10 @@
           return response.text();
         } else {
           console.error('Network response was not ok:', response.statusText);
-          throw new Error('Failed to fetch joke');
         }
       })
       .catch(function (error) {
         console.error('Error:', error.message);
-        throw error;
       });
   }
   
@@ -27,7 +25,7 @@
     $('#jokeText').text(joke);
   }
   
-  function displayJoke(apiUrl) {
+  function addJoke(apiUrl) {
     fetchJoke(apiUrl)
       .then(function (joke) {
         displayJoke(joke);
@@ -38,9 +36,9 @@
   }
   
   $('.dad').on('click', function () {
-    displayJoke(jokeUrl2);
+    addJoke(jokeUrl2);
   });
   
   $('.prog').on('click', function () {
-    displayJoke(jokeUrl1);
+    addJoke(jokeUrl1);
   });
