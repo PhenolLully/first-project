@@ -29,27 +29,37 @@
                       Close
                     </a>
                   </footer>
-                  
                 </article>
               </dialog>
-
         </header>
         <section class="container">
-            <div>Please select a category to get a random joke!</div>
+            <div>Please select which type of joke you'd like to see!</div>
+            <fieldset id="radioB">
+                  <label for="programming"><input type="radio" class="catInput" name="size" value="">Programming</label>
+                  <label for="puns"><input type="radio" class="catInput" name="size" value="">Puns</label>
+                  <label for="misc"><input type="radio" class="catInput" name="size" value="">Misc</label>
+                  <label for="dark"><input type="radio" class="catInput" name="size" value="">Dark</label>
+                  <label for="spooky"><input type="radio" class="catInput" name="size" value="">Spooky</label>
+                  <label for="christmas"><input type="radio" class="catInput" name="size" value="">Christmas</label>
+                  <label for="dad"><input type="radio" class="catInput" name="size" value="">Dad</label>
+              </fieldset>
+              <label>Amount of Jokes</label>
+                <select id="fruit" required>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
             <div class="grid">
-            <button id="dadJoke" class="dad">Dad Joke</button>
-            <button id="progJoke" class="prog">Programming Joke</button>
+            <button id="generateJoke">Generate</button>
             </div>
         </section>
         <section class="container">
         <div class="grid">
             <p id="jokeText"></p>
-            <button id="favorButton">⭐ Favorite</button>
         </div>
         </section>
     </body>
     <footer>
-    
     </footer>
     <script src="./js/script.js"></script>
 </html>

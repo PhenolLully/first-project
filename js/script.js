@@ -1,5 +1,33 @@
-var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-var jokeUrl2 = 'https://icanhazdadjoke.com/';
+var jokeCategories = [
+  {
+    category: "Programming",
+    apiUrl: "https://v2.jokeapi.dev/joke/Programming?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Misc",
+    apiUrl: "https://v2.jokeapi.dev/joke/Misc?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Dark",
+    apiUrl: "https://v2.jokeapi.dev/joke/Dark?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Pun",
+    apiUrl: "https://v2.jokeapi.dev/joke/Pun?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Spooky",
+    apiUrl: "https://v2.jokeapi.dev/joke/Spooky?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Christmas",
+    apiUrl: "https://v2.jokeapi.dev/joke/Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
+  },
+  {
+    category: "Dad Joke",
+    apiUrl: "https://icanhazdadjoke.com/",
+  },
+];
 
 var bothJokes = [];
 
@@ -49,12 +77,8 @@ var currentJoke = $('#jokeText').text();
 addFavoriteJoke(currentJoke);
 });
 
-$('.dad').on('click', function () {
-  addJoke(jokeUrl2);
-});
-
-$('.prog').on('click', function () {
-  addJoke(jokeUrl1);
+$('#generateJoke').on('click', function () {
+  addJoke(jokeCategories);
 });
 
 const isOpenClass = "modal-is-open";
