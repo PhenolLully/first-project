@@ -11,9 +11,27 @@
     <body>
         <header class="container">
             <h1>Joke Generator</h1>
-            <button class="contrast" data-target="modal-example" onClick="toggleModal(event)" id="favoriteList">
+            <button class="contrast" data-target="joke-modal" onClick="toggleModal(event)" id="favoriteList">
             My Favorite Jokes
             </button>
+            <dialog id="joke-modal">
+                <article>
+                  <a href="#close"
+                    aria-label="Close"
+                    class="close"
+                    data-target="joke-modal"
+                    onClick="toggleModal(event)">
+                  </a>
+                  <h3>Favorite Jokes:</h3>
+                  <p id="jokeBank">No jokes yet!</p>
+                  <footer>
+                    <a href="#cancel" role="button" class="secondary" data-target="joke-modal" onClick="toggleModal(event)">
+                      Close
+                    </a>
+                  </footer>
+                  
+                </article>
+              </dialog>
 
         </header>
         <section class="container">
@@ -24,7 +42,7 @@
             </div>
         </section>
         <section class="container">
-        <div class="grid">Result Joke
+        <div class="grid">
             <p id="jokeText"></p>
             <button id="favorButton">⭐ Favorite</button>
         </div>
