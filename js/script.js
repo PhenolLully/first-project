@@ -1,27 +1,9 @@
 var jokeUrl1 = "https://v2.jokeapi.dev/joke/Programming,Spooky,Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1";
-var jokeUrl2 = 'https://icanhazdadjoke.com/'
+var jokeUrl2 = 'https://icanhazdadjoke.com/';
 
 var bothJokes = [];
 
-$(".dad").on("click", function() {
-  alert("Joke clicked!");
-});
-
-$(".prog").on("click", function(){
-  alert("Joke clicked");
-});
-
-$("#favorButton").on("click", function(){
-  alert("Button clicked")
-})
-
-$(".contrast").on("click", function(){
-  
-})
-
-
-
-function fetchJokes(apiUrl) {
+function fetchJoke(apiUrl) {
   return fetch(apiUrl, {
     headers: {
       Accept: "text/plain"
@@ -31,34 +13,41 @@ function fetchJokes(apiUrl) {
       if (response.ok) {
         return response.text();
       } else {
-        console.log('Network response was not ok');
-      
+        console.error('Network response was not ok:', response.statusText);
       }
     })
-    .then(function (jokes) {
-      bothJokes.push(jokes);
-    })
-    .catch(function () {
-      console.log('Error:');
+    .catch(function (error) {
+      console.error('Error:', error.message);
     });
 }
 
-fetchJokes(jokeUrl1)
-  .then(function () {
-    return fetchJokes(jokeUrl2);
-  })
-  .then(function () {
-    console.log('Both jokes:', bothJokes);
+function displayJoke(joke) {
+  $('#jokeText').text(joke);
+}
 
-    for (let i = 0; i < bothJokes.length; i++) {
-      console.log(bothJokes[i]);
-    }
-  })
+function addJoke(apiUrl) {
+  fetchJoke(apiUrl)
+    .then(function (joke) {
+      displayJoke(joke);
+    })
+    .catch(function (error) {
+      console.error('An error occurred:', error.message);
+    });
+}
 
-  .catch(function () {
-    console.error('An error occurred:');
-  });
+function addFavoriteJoke(joke) {
+  var favoritesList = JSON.parse(localStorage.getItem('favoriteJokes'));
+  if (!favoritesList) {
+    favoritesList = [];
+  }
+  favoritesList.push(joke);
+  localStorage.setItem('favoriteJokes',JSON.stringify(favoritesList));
+}
 
+$('#favorButton').on('click', function () {
+var currentJoke = $('#jokeText').text();
+addFavoriteJoke(currentJoke);
+});
 
 $('#dadJoke').on('click', function () {
   $('#jokeText').text(bothJokes[0]);
