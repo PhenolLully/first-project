@@ -6,3 +6,14 @@
 input[type="radio"] {
     margin-left: 25px;
 }
+#jokeText{
+    width: 500px;
+    border: 10px solid rgb(255, 255, 255);
+    padding:  50px;
+    margin: 10px;}
+
+#share-buttons{
+    display: flex;  
+    justify-content: center;
+    justify-content: space-evenly;
+    }
