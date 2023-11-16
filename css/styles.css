@@ -1,7 +1,8 @@
-#jokeText{
-    width: 500px;
-    border: 10px solid rgb(255, 255, 255);
-    padding: 5git 0px;
-    margin: 10px;
-    
+#radioB {
+    display:flex;
+    margin-top: 20px;
+}
+
+input[type="radio"] {
+    margin-left: 25px;
 }
