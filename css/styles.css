@@ -1,0 +1,8 @@
+#radioB {
+    display:flex;
+    margin-top: 20px;
+}
+
+input[type="radio"] {
+    margin-left: 25px;
+}
