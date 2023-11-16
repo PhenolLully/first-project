@@ -1,3 +1,11 @@
+[data-theme="auto"], [data-theme="light"], #modalBG {
+    background-color: rgb(247, 191, 80);
+}
+
+[data-theme="dark"] {
+    background-color: rgb(80, 80, 80);
+}
+
 #radioB {
     display:flex;
     margin-top: 20px;
@@ -5,4 +13,18 @@
 
 input[type="radio"] {
     margin-left: 25px;
+    border-color: black;
+    border-radius: 25px;
+}
+
+#jokeAmount {
+    background-color: transparent 80%;
+}
+
+#joke-modal {
+    background-color: transparent 80%;
+}
+
+#modalBG {
+    background-color: rgba(247, 191, 80, 0.8);
 }

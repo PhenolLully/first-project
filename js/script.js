@@ -79,6 +79,7 @@ $('#favorButton').on('click', function () {
   addFavoriteJoke(currentJoke);
 });
 
+// Modal code
 const isOpenClass = "modal-is-open";
 const openingClass = "modal-is-opening";
 const closingClass = "modal-is-closing";
@@ -136,8 +137,8 @@ document.addEventListener("keydown", (event) => {
 const getScrollbarWidth = () => {
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";
-  outer.style.overflow = "scroll";
-  outer.style.msOverflowStyle = "scrollbar";
+  outer.style.overflow = "scroll"; 
+  outer.style.msOverflowStyle = "scrollbar"; 
   document.body.appendChild(outer);
 
   const inner = document.createElement("div");
@@ -153,3 +154,32 @@ const getScrollbarWidth = () => {
 const isScrollbarVisible = () => {
   return document.body.scrollHeight > screen.height;
 };
+
+let isLight = true
+const html = document.documentElement
+const switchTheme = document.getElementById('theme_switcher')
+
+// Light/Dark Mode code
+document.addEventListener('DOMContentLoaded', () => {
+  html.setAttribute('data-theme', 'auto')
+  switchTheme.setAttribute('data-tooltip', 'Change mood')
+  switchTheme.focus()
+  removeTooltip()
+})
+switchTheme.addEventListener('click', (e)=> {
+  e.preventDefault()
+  isLight = !isLight
+  html.setAttribute('data-theme', isLight? 'light':'dark')
+  switchTheme.innerHTML = isLight? sun : moon
+  switchTheme.setAttribute('data-tooltip', `${!isLight?'Light':'Dark'} Change mood`)
+  removeTooltip()
+})
+const removeTooltip = (timeInt = 100) => {
+  setTimeout(()=>{
+    switchTheme.blur()
+  },timeInt)
+}
+
+// Spinner Limit code
+$("#amount").attr('min', 1);
+$("#amount").attr('max', 10);
