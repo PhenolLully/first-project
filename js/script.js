@@ -1,84 +1,82 @@
 var jokeCategories = [
-  {
-    category: "Programming",
-    apiUrl: "https://v2.jokeapi.dev/joke/Programming?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Misc",
-    apiUrl: "https://v2.jokeapi.dev/joke/Misc?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Dark",
-    apiUrl: "https://v2.jokeapi.dev/joke/Dark?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Pun",
-    apiUrl: "https://v2.jokeapi.dev/joke/Pun?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Spooky",
-    apiUrl: "https://v2.jokeapi.dev/joke/Spooky?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Christmas",
-    apiUrl: "https://v2.jokeapi.dev/joke/Christmas?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=1",
-  },
-  {
-    category: "Dad Joke",
-    apiUrl: "https://icanhazdadjoke.com/",
-  },
+  { category: "Programming", value: "programming" },
+  { category: "Puns", value: "puns" },
+  { category: "Misc", value: "misc" },
+  { category: "Dark", value: "dark" },
+  { category: "Spooky", value: "spooky" },
+  { category: "Christmas", value: "christmas" },
+  { category: "Dad", value: "dad" },
 ];
 
-var bothJokes = [];
-
-function fetchJoke(apiUrl) {
-  return fetch(apiUrl, {
-    headers: {
-      Accept: "text/plain"
-    }
-  })
-    .then(function (response) {
-      if (response.ok) {
-        return response.text();
-      } else {
-        console.error('Network response was not ok:', response.statusText);
+function fetchJoke(category, amount) {
+  if (category === "dad") {
+    return fetch('https://icanhazdadjoke.com/', {
+      headers: {
+        Accept: "text/plain",
       }
     })
-    .catch(function (error) {
-      console.error('Error:', error.message);
-    });
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        } else {
+          console.error(response.statusText);
+        }
+      })
+      .catch(function (error) {
+        console.error(error.message);
+      });
+  } else {
+    var apiUrl = `https://v2.jokeapi.dev/joke/${category}?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=${amount}`;
+    return fetch(apiUrl, {
+      headers: {
+        Accept: "text/plain"
+      }
+    })
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        } else {
+          console.error(response.statusText);
+        }
+      })
+      .catch(function (error) {
+        console.error(error.message);
+      });
+  }
 }
 
 function displayJoke(joke) {
   $('#jokeText').text(joke);
 }
 
-function addJoke(apiUrl) {
-  fetchJoke(apiUrl)
-    .then(function (joke) {
-      displayJoke(joke);
-    })
-    .catch(function (error) {
-      console.error('An error occurred:', error.message);
-    });
-}
+$('#generateJoke').on('click', function () {
+  const selectedCategory = $('input[name=size]:checked').val();
+  const amount = $('#fruit').val();
 
+  if (selectedCategory) {
+    fetchJoke(selectedCategory, amount)
+      .then(function (joke) {
+        displayJoke(joke);
+      })
+      .catch(function (error) {
+        console.error(error.message);
+      });
+  } else {
+    console.error('Please select a joke category.');
+  }
+});
 function addFavoriteJoke(joke) {
   var favoritesList = JSON.parse(localStorage.getItem('favoriteJokes'));
   if (!favoritesList) {
     favoritesList = [];
   }
   favoritesList.push(joke);
-  localStorage.setItem('favoriteJokes',JSON.stringify(favoritesList));
+  localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
 }
 
 $('#favorButton').on('click', function () {
-var currentJoke = $('#jokeText').text();
-addFavoriteJoke(currentJoke);
-});
-
-$('#generateJoke').on('click', function () {
-  addJoke(jokeCategories);
+  var currentJoke = $('#jokeText').text();
+  addFavoriteJoke(currentJoke);
 });
 
 const isOpenClass = "modal-is-open";
@@ -138,8 +136,8 @@ document.addEventListener("keydown", (event) => {
 const getScrollbarWidth = () => {
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";
-  outer.style.overflow = "scroll"; 
-  outer.style.msOverflowStyle = "scrollbar"; 
+  outer.style.overflow = "scroll";
+  outer.style.msOverflowStyle = "scrollbar";
   document.body.appendChild(outer);
 
   const inner = document.createElement("div");
