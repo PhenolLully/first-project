@@ -49,10 +49,10 @@ var currentJoke = $('#jokeText').text();
 addFavoriteJoke(currentJoke);
 });
 
-$('#dadJoke').on('click', function () {
-  $('#jokeText').text(bothJokes[0]);
+$('.dad').on('click', function () {
+  addJoke(jokeUrl2);
 });
 
-$('#progJoke').on('click', function () {
-  $('#jokeText').text(bothJokes[1]);
+$('.prog').on('click', function () {
+  addJoke(jokeUrl1);
 });
