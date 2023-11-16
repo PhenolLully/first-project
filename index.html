@@ -4,60 +4,47 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" type="text/css" href="./css/styles.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <title>Generate a Joke!</title>
+        <title>The Joke Generator</title>
     </head>
     <body>
-        <header class="container">
-            <h1>Joke Generator</h1>
-            <button class="contrast" data-target="joke-modal" onClick="toggleModal(event)" id="favoriteList">
-            My Favorite Jokes
-            </button>
-            <dialog id="joke-modal">
-                <article>
-                  <a href="#close"
-                    aria-label="Close"
-                    class="close"
-                    data-target="joke-modal"
-                    onClick="toggleModal(event)">
-                  </a>
-                  <h3>Favorite Jokes:</h3>
-                  <p id="jokeBank">No jokes yet!</p>
-                  <footer>
-                    <a href="#cancel" role="button" class="secondary" data-target="joke-modal" onClick="toggleModal(event)">
-                      Close
-                    </a>
-                  </footer>
-                </article>
-              </dialog>
-        </header>
-        <section class="container">
-            <div>Please select which type of joke you'd like to see!</div>
-            <fieldset id="radioB">
-                  <label for="programming"><input type="radio" class="catInput" name="size" value="programming">Programming</label>
-                  <label for="puns"><input type="radio" class="catInput" name="size" value="puns">Puns</label>
-                  <label for="misc"><input type="radio" class="catInput" name="size" value="misc">Misc</label>
-                  <label for="dark"><input type="radio" class="catInput" name="size" value="dark">Dark</label>
-                  <label for="spooky"><input type="radio" class="catInput" name="size" value="spooky">Spooky</label>
-                  <label for="christmas"><input type="radio" class="catInput" name="size" value="christmas">Christmas</label>
-                  <label for="dad"><input type="radio" class="catInput" name="size" value="dad">Dad</label>
-              </fieldset>
-              <label>Amount of Jokes</label>
-                <select id="fruit" required>
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <div class="grid">
-            <button id="generateJoke">Generate</button>
-            </div>
-        </section>
-        <section class="container">
+      <header class="container">
+        <img src="./css/logo.png">
+        <nav>
+          <button class="contrast" role="button" data-target="joke-modal" onClick="toggleModal(event)" style="width:90%" id="favoriteList">My Favorite Jokes</button>
+          <button class="contrast" role="button" class="primary" id="theme_switcher" style="width:5%">☼</button>
+        </nav>
+        <dialog id="joke-modal">
+          <article id="modalBG" style="min-width:40%;">
+            <a href="#close" aria-label="Close" class="close" data-target="joke-modal" onClick="toggleModal(event)" ></a>
+            <h2>Favorite Jokes:</h2>
+            <p id="jokeBank">No jokes yet!</p>
+            <footer>
+              <a href="#cancel" role="button" class="secondary" data-target="joke-modal" onClick="toggleModal(event)"> Close</a>
+            </footer>
+          </article>
+        </dialog>
+      </header>
+      <section class="container">
+        <h3>Please select which type of joke you'd like to see!</h3>
+          <fieldset id="radioB">
+            <label for="programming"><input type="radio" class="catInput" name="size" value="programming">Programming</label>
+            <label for="misc"><input type="radio" class="catInput" name="size" value="misc">Misc</label>
+            <label for="dark"><input type="radio" class="catInput" name="size" value="dark">Dark</label>
+            <label for="dad"><input type="radio" class="catInput" name="size" value="dad">Dad</label>
+          </fieldset>
+        <label for="spinner">Select the amount of jokes:</label>
+        <input class="tooltiptext" type="number" id="amount" value="1">
         <div class="grid">
-            <p id="jokeText"></p>
+          <button id="generateJoke" class="contrast">Generate</button>
         </div>
-        </section>
+      </section>
+      <section class="container">
+        <div class="grid">
+          <ul id="jokeText"></ul>
+        </div>
+      </section>
     </body>
     <footer>
     </footer>
