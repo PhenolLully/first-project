@@ -1,10 +1,8 @@
 var jokeCategories = [
   { category: "Programming", value: "programming" },
-  { category: "Puns", value: "puns" },
+  { category: "Puns", value: "pun" },
   { category: "Misc", value: "misc" },
   { category: "Dark", value: "dark" },
-  { category: "Spooky", value: "spooky" },
-  { category: "Christmas", value: "christmas" },
   { category: "Dad", value: "dad" },
 ];
 function fetchJoke(category, amount) {
