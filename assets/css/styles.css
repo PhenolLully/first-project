@@ -29,10 +29,11 @@ input[type="radio"] {
     background-color: rgba(247, 191, 80, 0.8);
 }
 #jokeText{
-    width: 500px;
-    border: 10px solid rgb(35, 35, 41);
+    width: 100%;
+    border: 10px solid rgba(247, 191, 80, 0.8);
     padding:  50px;
-    margin: 10px;}
+    margin: 10px;
+}
 
 #share-buttons{
     display: flex;  
@@ -40,3 +41,6 @@ input[type="radio"] {
     justify-content: space-between;
 
     }
+
+
+    
