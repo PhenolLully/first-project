@@ -70,7 +70,7 @@ function addFavoriteJoke(joke) {
   localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
 }
 $('#favorButton').on('click', function () {
-  var currentJoke = $('#jokeText').text().trim().split("\n\n----------------------------------------------");;
+  var currentJoke = $('#jokeText').text().replace(/\n\n?/g, '').split("----------------------------------------------");
   addFavoriteJoke(currentJoke);
 });
 // Modal code
