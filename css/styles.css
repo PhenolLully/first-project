@@ -30,12 +30,13 @@ input[type="radio"] {
 }
 #jokeText{
     width: 500px;
-    border: 10px solid rgb(255, 255, 255);
+    border: 10px solid rgb(35, 35, 41);
     padding:  50px;
     margin: 10px;}
 
 #share-buttons{
     display: flex;  
     justify-content: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+
     }
