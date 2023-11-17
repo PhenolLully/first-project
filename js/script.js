@@ -7,7 +7,6 @@ var jokeCategories = [
   { category: "Christmas", value: "christmas" },
   { category: "Dad", value: "dad" },
 ];
-
 function fetchJoke(category, amount) {
   if (category === "dad") {
     return fetch('https://icanhazdadjoke.com/', {
@@ -44,15 +43,12 @@ function fetchJoke(category, amount) {
       });
   }
 }
-
 function displayJoke(joke) {
   $('#jokeText').text(joke);
 }
-
 $('#generateJoke').on('click', function () {
   const selectedCategory = $('input[name=size]:checked').val();
-  const amount = $('#fruit').val();
-
+  const amount = $('#amount').val();
   if (selectedCategory) {
     fetchJoke(selectedCategory, amount)
       .then(function (joke) {
@@ -73,19 +69,16 @@ function addFavoriteJoke(joke) {
   favoritesList.push(joke);
   localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
 }
-
 $('#favorButton').on('click', function () {
-  var currentJoke = $('#jokeText').text();
+  var currentJoke = $('#jokeText').text().trim().split("\n\n----------------------------------------------");;
   addFavoriteJoke(currentJoke);
 });
-
 // Modal code
 const isOpenClass = "modal-is-open";
 const openingClass = "modal-is-opening";
 const closingClass = "modal-is-closing";
 const animationDuration = 400; // ms
 let visibleModal = null;
-
 const toggleModal = (event) => {
   event.preventDefault();
   const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
@@ -93,11 +86,9 @@ const toggleModal = (event) => {
     ? closeModal(modal)
     : openModal(modal);
 };
-
 const isModalOpen = (modal) => {
   return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
 };
-
 const openModal = (modal) => {
   if (isScrollbarVisible()) {
     document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
@@ -109,7 +100,6 @@ const openModal = (modal) => {
   }, animationDuration);
   modal.setAttribute("open", true);
 };
-
 const closeModal = (modal) => {
   visibleModal = null;
   document.documentElement.classList.add(closingClass);
@@ -119,7 +109,6 @@ const closeModal = (modal) => {
     modal.removeAttribute("open");
   }, animationDuration);
 };
-
 document.addEventListener("click", (event) => {
   if (visibleModal != null) {
     const modalContent = visibleModal.querySelector("article");
@@ -127,38 +116,29 @@ document.addEventListener("click", (event) => {
     !isClickInside && closeModal(visibleModal);
   }
 });
-
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && visibleModal != null) {
     closeModal(visibleModal);
   }
 });
-
 const getScrollbarWidth = () => {
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";
-  outer.style.overflow = "scroll"; 
-  outer.style.msOverflowStyle = "scrollbar"; 
+  outer.style.overflow = "scroll";
+  outer.style.msOverflowStyle = "scrollbar";
   document.body.appendChild(outer);
-
   const inner = document.createElement("div");
   outer.appendChild(inner);
-
   const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-
   outer.parentNode.removeChild(outer);
-
   return scrollbarWidth;
 };
-
 const isScrollbarVisible = () => {
   return document.body.scrollHeight > screen.height;
 };
-
 let isLight = true
 const html = document.documentElement
 const switchTheme = document.getElementById('theme_switcher')
-
 // Light/Dark Mode code
 document.addEventListener('DOMContentLoaded', () => {
   html.setAttribute('data-theme', 'auto')
@@ -179,7 +159,6 @@ const removeTooltip = (timeInt = 100) => {
     switchTheme.blur()
   },timeInt)
 }
-
 // Spinner Limit code
 $("#amount").attr('min', 1);
 $("#amount").attr('max', 10);
