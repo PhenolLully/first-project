@@ -68,6 +68,13 @@ function addFavoriteJoke(joke) {
   }
   favoritesList.push(joke);
   localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
+  appendJokeToModal(joke);
+}
+function appendJokeToModal(joke){
+  var modalContent = document.getElementById("joke-modal");
+  var jokeParagraph = document.getElementById("jokeBank");
+  jokeParagraph.textContent = joke;
+  modalContent.append.$(joke);
 }
 $('#favorButton').on('click', function () {
   var currentJoke = $('#jokeText').text().replace(/\n\n?/g, '').split("----------------------------------------------");
