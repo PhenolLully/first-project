@@ -1,83 +1,141 @@
-var jokeCategories = [
+$(document).ready(function () {
+  appendJokeToModal();
+});
+
+const jokeCategories = [
   { category: "Programming", value: "programming" },
   { category: "Puns", value: "pun" },
   { category: "Misc", value: "misc" },
   { category: "Dark", value: "dark" },
   { category: "Dad", value: "dad" },
 ];
+
+function fetchDadJoke(category, amount) {
+  const uniqueJokes = [];
+
+  const fetchJoke = () =>
+    fetch('https://icanhazdadjoke.com/', {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error('Failed to fetch jokes.');
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (!data || !data.joke) {
+          console.error('Invalid data format.');
+          return;
+        }
+
+        if (!uniqueJokes.includes(data.joke)) {
+          uniqueJokes.push(data.joke);
+        }
+
+        if (uniqueJokes.length < amount) {
+          return fetchJoke();
+        } else {
+          displayJokes({ jokes: uniqueJokes });
+        }
+      });
+
+  fetchJoke();
+}
+
 function fetchJoke(category, amount) {
   if (category === "dad") {
-    return fetch('https://icanhazdadjoke.com/', {
-      headers: {
-        Accept: "text/plain",
-      }
-    })
-      .then(function (response) {
-        if (response.ok) {
-          return response.text();
-        } else {
-          console.error(response.statusText);
-        }
-      })
-      .catch(function (error) {
-        console.error(error.message);
-      });
+    fetchDadJoke(category, amount);
   } else {
-    var apiUrl = `https://v2.jokeapi.dev/joke/${category}?blacklistFlags=religious,racist,sexist,explicit&format=txt&type=single&amount=${amount}`;
-    return fetch(apiUrl, {
-      headers: {
-        Accept: "text/plain"
-      }
-    })
-      .then(function (response) {
-        if (response.ok) {
-          return response.text();
-        } else {
-          console.error(response.statusText);
-        }
+    const apiUrl = `https://v2.jokeapi.dev/joke/${category}?blacklistFlags=religious,racist,sexist,explicit&format=json&type=single&amount=${amount}`;
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) return { error: 'Failed to fetch jokes.' };
+        return response.json();
       })
-      .catch(function (error) {
-        console.error(error.message);
-      });
+      .then((data) => {
+        if (!data || (Array.isArray(data.jokes) && data.jokes.length === 0)) return { error: 'Invalid data format.' };
+
+        const jokes = Array.isArray(data.jokes) ? data.jokes.map(joke => joke.joke) : [data.joke];
+        displayJokes({ jokes });
+      })
+      .catch((error) => console.error(error));
   }
 }
-function displayJoke(joke) {
-  $('#jokeText').text(joke);
+
+function displayJokes(result) {
+  const jokeContainer = $('#jokeText');
+  jokeContainer.empty();
+
+  if (result.jokes) {
+    result.jokes.forEach((joke) => {
+      const jokeDiv = createJokeDiv(joke);
+      jokeContainer.append(jokeDiv);
+    });
+  } else if (result.error) {
+    console.error(result.error);
+  } else {
+    console.error('Invalid result format.');
+  }
+
+  appendJokeToModal();
 }
+
+function createJokeDiv(joke) {
+  const jokeDiv = $('<div>');
+  const jokeParagraph = $('<p>').text(joke);
+  const favoriteButton = $('<button>').text('Favorite ⭐').addClass('contrast').on('click', function () {
+    addFavoriteJoke(joke);
+  });
+
+  return jokeDiv.append(jokeParagraph, favoriteButton);
+}
+
 $('#generateJoke').on('click', function () {
-  const selectedCategory = $('input[name=size]:checked').val();
+  const selectedCategory = $('input[type=radio]:checked').val();
   const amount = $('#amount').val();
+
   if (selectedCategory) {
-    fetchJoke(selectedCategory, amount)
-      .then(function (joke) {
-        displayJoke(joke);
-      })
-      .catch(function (error) {
-        console.error(error.message);
-      });
+    fetchJoke(selectedCategory, amount);
   } else {
     console.error('Please select a joke category.');
   }
 });
+
 function addFavoriteJoke(joke) {
-  var favoritesList = JSON.parse(localStorage.getItem('favoriteJokes'));
-  if (!favoritesList) {
-    favoritesList = [];
+  try {
+    const favoritesList = JSON.parse(localStorage.getItem('favoriteJokes')) || [];
+    if (!favoritesList.includes(joke)) {
+      favoritesList.push(joke);
+      localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
+      appendJokeToModal();
+    }
+  } catch (error) {
+    console.error(error);
   }
-  favoritesList.push(joke);
-  localStorage.setItem('favoriteJokes', JSON.stringify(favoritesList));
-  appendJokeToModal(joke);
 }
-function appendJokeToModal(joke){
-  var modalContent = document.getElementById("joke-modal");
-  var jokeParagraph = document.getElementById("jokeBank");
-  jokeParagraph.textContent = joke;
-  modalContent.append.$(joke);
+
+function appendJokeToModal() {
+  const modalContent = $('#jokeBank');
+  const favoritesList = JSON.parse(localStorage.getItem('favoriteJokes')) || [];
+  modalContent.empty();
+
+  if (favoritesList.length > 0) {
+    favoritesList.forEach((joke) => {
+      const jokeDiv = $('<div>').addClass('favorite-joke');
+      const jokeParagraph = $('<p>').text(joke);
+
+      modalContent.append(jokeDiv.append(jokeParagraph));
+    });
+  } else {
+    const noFavoritesMessage = $('<p>').text('No favorite jokes yet!');
+    modalContent.append(noFavoritesMessage);
+  }
 }
-$('#favorButton').on('click', function () {
-  var currentJoke = $('#jokeText').text().replace(/\n\n?/g, '').split("----------------------------------------------");
-  addFavoriteJoke(currentJoke);
-});
+
 // Modal code
 const isOpenClass = "modal-is-open";
 const openingClass = "modal-is-opening";
@@ -155,8 +213,8 @@ switchTheme.addEventListener('click', (e)=> {
   e.preventDefault()
   isLight = !isLight
   html.setAttribute('data-theme', isLight? 'light':'dark')
-  switchTheme.innerHTML = isLight? sun : moon
-  switchTheme.setAttribute('data-tooltip', `${!isLight?'Light':'Dark'} Change mood`)
+  switchTheme.innerHTML = isLight? '☾' : '☼';
+  switchTheme.setAttribute('data-tooltip', `${!isLight?'Light':'Dark'} mode`)
   removeTooltip()
 })
 const removeTooltip = (timeInt = 100) => {
