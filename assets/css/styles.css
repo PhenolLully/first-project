@@ -28,19 +28,19 @@ input[type="radio"] {
 #modalBG {
     background-color: rgba(247, 191, 80, 0.8);
 }
+
 #jokeText{
-    width: 100%;
-    border: 10px solid rgba(247, 191, 80, 0.8);
-    padding:  50px;
-    margin: 10px;
-    font-size: 20px;
-;}
+    border: 2px solid rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
 
 #share-buttons{
     display: flex;  
     justify-content: right;
     width: 100;
     margin: 30 px;
-    
+}
 
-    }
+.favorite-joke {
+    margin-bottom: 30px;
+}
