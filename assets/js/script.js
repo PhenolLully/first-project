@@ -1,7 +1,7 @@
 $(document).ready(function () {
-  appendJokeToModal();
+  appendJokeToModal(); // Appends saved jokes from localstorage to the Favorite Modal
 });
-
+// Array of categories, each assigned a specific value that matches the each radio button's value
 const jokeCategories = [
   { category: "Programming", value: "programming" },
   { category: "Puns", value: "pun" },
@@ -9,8 +9,8 @@ const jokeCategories = [
   { category: "Dark", value: "dark" },
   { category: "Dad", value: "dad" },
 ];
-
-function fetchDadJoke(category, amount) {
+// Receives JSON resposne from Dad Joke API
+function fetchDadJoke(amount) {
   const uniqueJokes = [];
 
   const fetchJoke = () =>
@@ -45,7 +45,7 @@ function fetchDadJoke(category, amount) {
 
   fetchJoke();
 }
-
+// Depending on user input, takes value of 'category' from the selected radio button and 'amount' from the spinner
 function fetchJoke(category, amount) {
   if (category === "dad") {
     fetchDadJoke(category, amount);
@@ -65,7 +65,8 @@ function fetchJoke(category, amount) {
       .catch((error) => console.error(error));
   }
 }
-
+// Takes the id 'jokeText' and clears it at the beginning of the script. Uses the later-defined createJokeDiv 
+// function and changes the text inside 'jokeContainer'
 function displayJokes(result) {
   const jokeContainer = $('#jokeText');
   jokeContainer.empty();
@@ -80,10 +81,9 @@ function displayJokes(result) {
   } else {
     console.error('Invalid result format.');
   }
-
-  appendJokeToModal();
 }
-
+// Creates a new block for each joke that includes a favorite button. The favorite button has an 
+// event listener method so that when it is clicked, the joke on the block is saved to the favorites modal
 function createJokeDiv(joke) {
   const jokeDiv = $('<div>');
   const jokeParagraph = $('<p>').text(joke);
@@ -93,7 +93,8 @@ function createJokeDiv(joke) {
 
   return jokeDiv.append(jokeParagraph, favoriteButton);
 }
-
+// Creates an event listener method for the generate button, takes the user input for 'category' and 'amount'. 
+// Provies an error message to the console if a category is not selected
 $('#generateJoke').on('click', function () {
   const selectedCategory = $('input[type=radio]:checked').val();
   const amount = $('#amount').val();
@@ -104,7 +105,7 @@ $('#generateJoke').on('click', function () {
     console.error('Please select a joke category.');
   }
 });
-
+// Takes the received joke from the JSON response and converts it into text, to be saved into the localstorage under the array 'favoriteJokes'
 function addFavoriteJoke(joke) {
   try {
     const favoritesList = JSON.parse(localStorage.getItem('favoriteJokes')) || [];
@@ -117,7 +118,8 @@ function addFavoriteJoke(joke) {
     console.error(error);
   }
 }
-
+// Takes the jokes stored in the localstorage (converted to text) and creates a new 'p' element for each joke in the 'favoriteJokes' array 
+// to show in the modal. If there are no saved jokes, a message is displayed to the user
 function appendJokeToModal() {
   const modalContent = $('#jokeBank');
   const favoritesList = JSON.parse(localStorage.getItem('favoriteJokes')) || [];
